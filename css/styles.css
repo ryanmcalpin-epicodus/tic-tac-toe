@@ -1,0 +1,10 @@
+.col-xs-4 {
+  border: 1px solid black;
+  height: 150px;
+  max-width: 150px;
+}
+
+body {
+  font-size: 100px;
+  text-align: center;
+}
