@@ -9,6 +9,7 @@ Player.prototype.mark = function() {
 function Space(x, y) {
   this.xCoordinate = x;
   this.yCoordinate = y;
+  this.markedBy = "";
 }
 
 Space.prototype.getX = function () {
@@ -16,6 +17,9 @@ Space.prototype.getX = function () {
 };
 Space.prototype.getY = function () {
   return this.yCoordinate;
+};
+Space.prototype.mark = function (whateverPlayer) {
+  this.markedBy = whateverPlayer.markCharacter;
 };
 
 var board = [];
@@ -26,6 +30,25 @@ for (var y = 0; y < 3; y++) {
   }
 }
 
+var switchTurn = function() {
+  if (turnIndex === 0) {
+    turnIndex = 1;
+  } else {
+    turnIndex = 0;
+  }
+}
+
+var checkWin = function() {
+  var mark = players[turnIndex].markCharacter;
+  if ((board[0].markedBy === mark && board[1].markedBy === mark && board[2].markedBy === mark) || (board[3].markedBy === mark && board[4].markedBy === mark && board[5].markedBy === mark) || (board[6].markedBy === mark && board[7].markedBy === mark && board[8].markedBy === mark) || (board[0].markedBy === mark && board[3].markedBy === mark && board[6].markedBy === mark) || (board[1].markedBy === mark && board[4].markedBy === mark && board[7].markedBy === mark) || (board[2].markedBy === mark && board[5].markedBy === mark && board[8].markedBy === mark) || (board[0].markedBy === mark && board[4].markedBy === mark && board[8].markedBy === mark) || (board[2].markedBy === mark && board[4].markedBy === mark && board[6].markedBy === mark)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+var turnIndex = 0;
 
 var playerX = new Player("X");
 var playerO = new Player("O");
+var players = [playerX, playerO];
