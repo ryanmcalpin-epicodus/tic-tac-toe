@@ -1,17 +1,13 @@
 function Player(mark) {
   this.markCharacter = mark;
 }
-
 Player.prototype.mark = function() {
   return this.markCharacter;
 };
 
-function Space(x, y) {
-  this.xCoordinate = x;
-  this.yCoordinate = y;
+function Space() {
   this.markedBy = "";
 }
-
 Space.prototype.getX = function () {
   return this.xCoordinate;
 };
@@ -28,11 +24,9 @@ Space.prototype.mark = function (whateverPlayer, currentId) {
 };
 
 var board = [];
-for (var y = 0; y < 3; y++) {
-  for (var x = 0; x < 3; x++) {
-    var newSpace = new Space(x, y);
-    board.push(newSpace);
-  }
+for (var i = 0; i < 9; i++) {
+  var newSpace = new Space();
+  board.push(newSpace);
 }
 
 var switchTurn = function() {
@@ -58,16 +52,15 @@ var convertId = function(eyeDee) {
 };
 
 var gameOver = function() {
-  alert("GAME OVER");
+  $("div.winner").show();
+  gameIsOver = true;
 }
 
 var turnIndex = 0;
-
 var playerX = new Player("X");
 var playerO = new Player("O");
 var players = [playerX, playerO];
-
-
+var gameIsOver = false;
 
 var updateDisplay = function(mark, id) {
   $("#" + id).text(players[turnIndex].markCharacter);
@@ -78,6 +71,9 @@ $(document).ready(function() {
     var currentId = $(this).attr('id');
     idNumber = convertId(currentId);
     board[idNumber].mark(players[turnIndex], currentId);
-
   });
+  $("div.winner").click(function() {
+    location.reload();
+  });
+
 });

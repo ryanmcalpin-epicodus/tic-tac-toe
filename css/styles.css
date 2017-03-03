@@ -8,3 +8,11 @@ body {
   font-size: 100px;
   text-align: center;
 }
+
+p {
+  font-size: 12px;
+}
+
+.winner {
+  display: none;
+}
